@@ -98,3 +98,38 @@ Route::post(
         'destroy'
     ]
 )->middleware('can:isResto');
+Route::get(
+    'konsumen/alamatkirim',
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'index']
+)
+    ->middleware('can:isKonsumen');
+Route::get(
+    'konsumen/alamatkirim/create',
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'create']
+)
+    ->middleware('can:isKonsumen');
+Route::post(
+    'konsumen/alamatkirim/store',
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'store']
+)
+    ->middleware('can:isKonsumen');
+Route::get(
+    'konsumen/alamatkirim/edit/{id}',
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'edit']
+)
+    ->middleware('can:isKonsumen');
+Route::post(
+    'konsumen/alamatkirim/update/{id}',
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'update']
+)
+    ->middleware('can:isKonsumen');
+Route::post(
+    'konsumen/alamatkirim/destroy/{id}',
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'destroy']
+)
+    ->middleware('can:isKonsumen');
+Route::post(
+    'konsumen/alamatkirim/default/{id}',
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'default']
+)
+    ->middleware('can:isKonsumen');
