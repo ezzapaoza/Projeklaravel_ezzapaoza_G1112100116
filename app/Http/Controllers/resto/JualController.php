@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Jual;
 use App\Models\JualDetail;
 use App\Models\AlamatKirim;
+use App\Models\User;
 
 class JualController extends Controller
 {
@@ -73,3 +74,15 @@ class JualController extends Controller
         );
     }
 }
+$jual = Jual::find($id);
+$jual_details = JualDetail::whereRaw("jual_id=?", [$id])->get();
+$alamat_kirim = AlamatKirim::find($jual->alamat_kirim_id);
+$kurir = User::find($jual->kurir_id);
+if ($jual == null || count($jual_details) == 0) {
+    return redirect('/resto/home')
+        ->withErrors(['msg' => 'Kode tracking tidak dikenal']);
+}
+return view(
+    'resto.jual.track',
+    compact('jual', 'jual_details', 'alamat_kirim', 'kurir')
+);

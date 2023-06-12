@@ -189,3 +189,20 @@ Route::get('resto/track/{id}', [
     App\Http\Controllers\resto\JualController::class,
     'gettrack'
 ])->middleware('can:isResto');
+Route::post(
+    'konsumen/rate/{id}',
+    [App\Http\Controllers\konsumen\JualController::class, 'postrate']
+)
+    ->middleware('can:isKonsumen');
+Route::post('kurir/antar/{id}', [
+    App\Http\Controllers\kurir\JualController::class,
+    'postantar'
+])->middleware('can:isKurir');
+Route::post('kurir/tiba/{id}', [
+    App\Http\Controllers\kurir\JualController::class,
+    'posttiba'
+])->middleware('can:isKurir');
+Route::post('kurir/rate/{id}', [
+    App\Http\Controllers\kurir\JualController::class,
+    'postrate'
+])->middleware('can:isKurir');

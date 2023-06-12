@@ -10,7 +10,7 @@ use App\Models\Pizza;
 use App\Models\Jual;
 use App\Models\JualDetail;
 use App\Models\AlamatKirim;
-
+use App\Models\User;
 
 class JualController extends Controller
 {
@@ -241,4 +241,33 @@ class JualController extends Controller
         }
         return redirect('/konsumen/home')->with('success', 'Berhasil membatalkan order');
     }
+    public function postrate(Request $request, $id)
+    {
+        try {
+            DB::transaction(function () use ($id, $request) {
+                $jual = Jual::find($id);
+                $jual->resto_rate = $request->get('resto_rate', 5);
+                $jual->kurir_rate = $request->get('kurir_rate', 5);
+                $jual->save();
+            }, 5);
+        } catch (\Exception $e) {
+            return redirect('/konsumen/home')
+                ->withErrors(['msg' => $e->getMessage()]);
+        }
+        return redirect('/konsumen/home')
+            ->with('success', 'Berhasil beri rating');
+    }
 }
+
+$jual = Jual::find($id);
+$jual_details = JualDetail::whereRaw("jual_id=?", [$id])->get();
+$alamat_kirim = AlamatKirim::find($jual->alamat_kirim_id);
+$kurir = User::find($jual->kurir_id);
+if ($jual == null || count($jual_details) == 0) {
+    return redirect('/konsumen/home')
+        ->withErrors(['msg' => 'Kode tracking tidak dikenal']);
+}
+return view(
+    'konsumen.jual.track',
+    compact('jual', 'jual_details', 'alamat_kirim', 'kurir')
+);
