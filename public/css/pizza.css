@@ -1,0 +1,46 @@
+h1{
+    color: #C8100B;
+   }
+   .pizza-card{
+    border-radius: 10px;
+    height:100px;
+    line-height:100px;
+    padding: 3px 3px;
+    background-clip: content-box;
+   }
+   .pizza-primary{
+    color: #666D3B;
+    background-color: #ECBC84;
+    font-size: medium;
+   }
+   h1, h2{
+    color: #C8100B;
+   }
+   .pizza-card{
+    border-radius: 10px;
+    height:100px;
+    line-height:100px;
+    padding: 3px 3px;
+    background-clip: content-box;
+   }
+   .pizza-primary{
+    color: #666D3B;
+    background-color: #ECBC84;
+    font-size: medium;
+   }
+   .pizza-danger{
+    color: #C8100B;
+   }
+   .pizza-text-center{
+    text-align: center;
+   }
+   .pizza-card a:link, .pizza-card a:visited{
+    color:white;
+    font-size: 1.1rem;
+    text-decoration: none;
+   }
+   .pizza-card a:hover, .pizza-card a:active{
+    color:#C8100B;
+    text-decoration: none;
+    font-size: 1.1rem;
+   }
