@@ -1,12 +1,6 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
- <h1>Kurir</h1>
-</div>
-@endsection
-@extends('layouts.app')
-@section('content')
-<div class="container">
  <h1>KURIR</h1>
  <div class="row">
  <div class="col-4 pizza-card pizza-primary">

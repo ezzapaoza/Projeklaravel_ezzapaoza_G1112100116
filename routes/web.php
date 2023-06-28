@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,189 +21,125 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get(
-    'resto/home',
-    [App\Http\Controllers\resto\HomeController::class, 'index']
-)
+Route::get('resto/home', 
+    [App\Http\Controllers\resto\HomeController::class, 'index'])
     ->middleware('can:isResto');
-Route::get(
-    'kurir/home',
-    [App\Http\Controllers\kurir\HomeController::class, 'index']
-)
+Route::get('kurir/home', 
+    [App\Http\Controllers\kurir\HomeController::class, 'index'])
     ->middleware('can:isKurir');
-Route::get(
-    'konsumen/home',
-    [App\Http\Controllers\konsumen\HomeController::class, 'index']
-)
+Route::get('konsumen/home', 
+    [App\Http\Controllers\konsumen\HomeController::class, 'index'])
     ->middleware('can:isKonsumen');
-Route::get(
-    'resto/user',
-    [App\Http\Controllers\resto\UserController::class, 'index']
-)
+Route::get('resto/user', 
+    [App\Http\Controllers\resto\UserController::class, 'index'])
     ->middleware('can:isResto');
-Route::get(
-    'resto/user/create',
-    [App\Http\Controllers\resto\UserController::class, 'create']
-)
+Route::get('resto/user/create', 
+    [App\Http\Controllers\resto\UserController::class, 'create'])
     ->middleware('can:isResto');
-Route::post(
-    'resto/user/store',
-    [App\Http\Controllers\resto\UserController::class, 'store']
-)
+Route::post('resto/user/store', 
+    [App\Http\Controllers\resto\UserController::class, 'store'])
     ->middleware('can:isResto');
-Route::get(
-    'resto/user/edit/{id}',
-    [App\Http\Controllers\resto\UserController::class, 'edit']
-)
+Route::get('resto/user/edit/{id}', 
+    [App\Http\Controllers\resto\UserController::class, 'edit'])
     ->middleware('can:isResto');
-Route::post(
-    'resto/user/update/{id}',
-    [App\Http\Controllers\resto\UserController::class, 'update']
-)
+Route::post('resto/user/update/{id}', 
+    [App\Http\Controllers\resto\UserController::class, 'update'])
     ->middleware('can:isResto');
-Route::post(
-    'resto/user/destroy/{id}',
-    [App\Http\Controllers\resto\UserController::class, 'destroy']
-)
+Route::post('resto/user/destroy/{id}', 
+    [App\Http\Controllers\resto\UserController::class, 'destroy'])
     ->middleware('can:isResto');
-Route::get('resto/pizza', [
-    App\Http\Controllers\resto\PizzaController::class,
-    'index'
-])->middleware('can:isResto');
-Route::get('resto/pizza/create', [
-    App\Http\Controllers\resto\PizzaController::class,
-    'create'
-])->middleware('can:isResto');
-Route::post('resto/pizza/store', [
-    App\Http\Controllers\resto\PizzaController::class,
-    'store'
-])->middleware('can:isResto');
-Route::get(
-    'resto/pizza/edit/{id}',
-    [
-        App\Http\Controllers\resto\PizzaController::class,
-        'edit'
-    ]
-)->middleware('can:isResto');
-Route::post(
-    'resto/pizza/update/{id}',
-    [
-        App\Http\Controllers\resto\PizzaController::class,
-        'update'
-    ]
-)->middleware('can:isResto');
-Route::post(
-    'resto/pizza/destroy/{id}',
-    [
-        App\Http\Controllers\resto\PizzaController::class,
-        'destroy'
-    ]
-)->middleware('can:isResto');
-Route::get(
-    'konsumen/alamatkirim',
-    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'index']
-)
+Route::get('resto/pizza', [App\Http\Controllers\resto\PizzaController::class, 
+    'index'])->middleware('can:isResto');
+Route::get('resto/pizza/create', [App\Http\Controllers\resto\PizzaController::class, 
+    'create'])->middleware('can:isResto');
+Route::post('resto/pizza/store', [App\Http\Controllers\resto\PizzaController::class, 
+    'store'])->middleware('can:isResto');
+Route::get('resto/pizza/edit/{id}',
+    [App\Http\Controllers\resto\PizzaController::class, 
+    'edit'])->middleware('can:isResto');
+Route::post('resto/pizza/update/{id}', 
+    [App\Http\Controllers\resto\PizzaController::class, 
+    'update'])->middleware('can:isResto');
+Route::post('resto/pizza/destroy/{id}', 
+    [App\Http\Controllers\resto\PizzaController::class, 
+    'destroy'])->middleware('can:isResto');
+Route::get('konsumen/alamatkirim', 
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'index'])
     ->middleware('can:isKonsumen');
-Route::get(
-    'konsumen/alamatkirim/create',
-    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'create']
-)
+Route::get('konsumen/alamatkirim/create', 
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'create'])
     ->middleware('can:isKonsumen');
-Route::post(
-    'konsumen/alamatkirim/store',
-    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'store']
-)
+Route::post('konsumen/alamatkirim/store', 
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'store'])
     ->middleware('can:isKonsumen');
-Route::get(
-    'konsumen/alamatkirim/edit/{id}',
-    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'edit']
-)
+Route::get('konsumen/alamatkirim/edit/{id}', 
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'edit'])
     ->middleware('can:isKonsumen');
-Route::post(
-    'konsumen/alamatkirim/update/{id}',
-    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'update']
-)
+Route::post('konsumen/alamatkirim/update/{id}', 
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'update'])
     ->middleware('can:isKonsumen');
-Route::post(
-    'konsumen/alamatkirim/destroy/{id}',
-    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'destroy']
-)
+Route::post('konsumen/alamatkirim/destroy/{id}', 
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'destroy'])
     ->middleware('can:isKonsumen');
-Route::post(
-    'konsumen/alamatkirim/default/{id}',
-    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'default']
-)
+Route::post('konsumen/alamatkirim/default/{id}', 
+    [App\Http\Controllers\konsumen\AlamatKirimController::class, 'default'])
     ->middleware('can:isKonsumen');
-Route::get(
-    'konsumen/order',
-    [App\Http\Controllers\konsumen\JualController::class, 'order']
-)
+Route::get('konsumen/order', 
+    [App\Http\Controllers\konsumen\JualController::class, 'order'])
     ->middleware('can:isKonsumen');
-Route::post(
-    'konsumen/addtocart/{id}',
-    [App\Http\Controllers\konsumen\JualController::class, 'addtocart']
-)
+Route::post('konsumen/addtocart/{id}', 
+    [App\Http\Controllers\konsumen\JualController::class, 'addtocart'])
     ->middleware('can:isKonsumen');
-Route::get(
-    'konsumen/cart',
-    [App\Http\Controllers\konsumen\JualController::class, 'getcart']
-)
+Route::get('konsumen/cart', 
+    [App\Http\Controllers\konsumen\JualController::class, 'getcart'])
     ->middleware('can:isKonsumen');
-Route::post(
-    'konsumen/cart',
-    [App\Http\Controllers\konsumen\JualController::class, 'postcart']
-)
+Route::post('konsumen/cart', 
+    [App\Http\Controllers\konsumen\JualController::class, 'postcart'])
     ->middleware('can:isKonsumen');
-Route::get(
-    'konsumen/checkout',
-    [App\Http\Controllers\konsumen\JualController::class, 'getcheckout']
-)
+Route::get('konsumen/checkout', 
+    [App\Http\Controllers\konsumen\JualController::class, 'getcheckout'])
     ->middleware('can:isKonsumen');
-Route::post(
-    'konsumen/checkout',
-    [App\Http\Controllers\konsumen\JualController::class, 'postcheckout']
-)
+Route::post('konsumen/checkout', 
+    [App\Http\Controllers\konsumen\JualController::class, 'postcheckout'])
     ->middleware('can:isKonsumen');
-Route::post(
-    'konsumen/cancel/{id}',
-    [App\Http\Controllers\konsumen\JualController::class, 'postcancel']
-)
+Route::post('konsumen/cancel/{id}', 
+    [App\Http\Controllers\konsumen\JualController::class, 'postcancel'])
     ->middleware('can:isKonsumen');
-Route::get(
-    'konsumen/track/{id}',
-    [App\Http\Controllers\konsumen\JualController::class, 'gettrack']
-)
+Route::get('konsumen/track/{id}', 
+    [App\Http\Controllers\konsumen\JualController::class, 'gettrack'])
     ->middleware('can:isKonsumen');
-Route::post('resto/proses/{id}', [
-    App\Http\Controllers\resto\JualController::class,
-    'postproses'
-])->middleware('can:isResto');
-Route::post('resto/siap/{id}', [
-    App\Http\Controllers\resto\JualController::class,
-    'postsiap'
-])->middleware('can:isResto');
-Route::post('resto/cancel/{id}', [
-    App\Http\Controllers\resto\JualController::class,
-    'postcancel'
-])->middleware('can:isResto');
-Route::get('resto/track/{id}', [
-    App\Http\Controllers\resto\JualController::class,
-    'gettrack'
-])->middleware('can:isResto');
-Route::post(
-    'konsumen/rate/{id}',
-    [App\Http\Controllers\konsumen\JualController::class, 'postrate']
-)
+Route::post('resto/proses/{id}', [App\Http\Controllers\resto\JualController::class, 
+    'postproses'])->middleware('can:isResto');
+Route::post('resto/siap/{id}', [App\Http\Controllers\resto\JualController::class, 
+    'postsiap'])->middleware('can:isResto');
+Route::post('resto/cancel/{id}', [App\Http\Controllers\resto\JualController::class, 
+    'postcancel'])->middleware('can:isResto');
+Route::get('resto/track/{id}', [App\Http\Controllers\resto\JualController::class, 
+    'gettrack'])->middleware('can:isResto');
+Route::post('konsumen/rate/{id}', 
+    [App\Http\Controllers\konsumen\JualController::class, 'postrate'])
     ->middleware('can:isKonsumen');
-Route::post('kurir/antar/{id}', [
-    App\Http\Controllers\kurir\JualController::class,
-    'postantar'
-])->middleware('can:isKurir');
-Route::post('kurir/tiba/{id}', [
-    App\Http\Controllers\kurir\JualController::class,
-    'posttiba'
-])->middleware('can:isKurir');
-Route::post('kurir/rate/{id}', [
-    App\Http\Controllers\kurir\JualController::class,
-    'postrate'
-])->middleware('can:isKurir');
+Route::post('kurir/antar/{id}', [App\Http\Controllers\kurir\JualController::class, 
+    'postantar'])->middleware('can:isKurir');
+Route::post('kurir/tiba/{id}', [App\Http\Controllers\kurir\JualController::class, 
+    'posttiba'])->middleware('can:isKurir');
+Route::post('kurir/rate/{id}', [App\Http\Controllers\kurir\JualController::class, 
+    'postrate'])->middleware('can:isKurir');
+Route::get('resto/pizza/image/{id}', 
+    [App\Http\Controllers\resto\PizzaController::class, 'getimage'])
+    ->middleware('can:isResto');
+Route::post('resto/pizza/image/{id}', 
+    [App\Http\Controllers\resto\PizzaController::class, 'postimage'])
+    ->middleware('can:isResto');
+Route::get('pizza_resources/{filename}', function ($filename)
+    {
+    $path = storage_path('app/pizza_resources/'.$filename);
+    if (!File::exists($path)) {
+            abort(404);
+        }
+        $file = File::get($path);
+        $type = File::mimeType($path);
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+        return $response;
+    });

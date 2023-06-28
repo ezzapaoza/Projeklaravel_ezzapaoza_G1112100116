@@ -11,22 +11,20 @@
  <td>
  <a class="btn btn-primary"
  href="{{ url('resto/pizza/edit').'/'.$cur->id }}">Edit</a>
- <form method="post"
- action="{{ url('resto/pizza/destroy').'/'.$cur->id }}"
- style="display:inline">
+ <a class="btn btn-primary"
+ href="{{ url('resto/pizza/image').'/'.$cur->id }}">Gambar</a>
+ <form method="post" action="{{ url('resto/pizza/destroy').'/'.$cur->id }}"style="display:inline">
  @csrf
  <button class="btn btn-danger" style="submit"
- onclick="return confirm('Hapus data?')">
- Hapus
- </button>
+ onclick="return confirm('Hapus data?')">Hapus</button>
  </form>
  </td>
- <td>{!! $cur->nama_pizza !!}</td>
- <td>{!! $cur->harga_satuan !!}</td>
+ <td>{!! $cur-> nama_pizza !!}</td>
+ <td> {!! $cur-> harga_satuan !!}</td>
  </tr>
  @endforeach
- </tbody>
+</tbody>
 </table>
-{{ $pizzas->links() }}
+{{$pizzas->links()}}
 </div>
 @endsection

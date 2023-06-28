@@ -222,24 +222,15 @@ class JualController extends Controller
         $jual = Jual::find($id);
         $jual_details = JualDetail::whereRaw("jual_id=?", [$id])->get();
         $alamat_kirim = AlamatKirim::find($jual->alamat_kirim_id);
+        $kurir = User::find($jual->kurir_id);
         if ($jual == null || count($jual_details) == 0) {
-            return redirect('/konsumen/home')->withErrors(
-                ['msg' => 'Kode tracking tidak dikenal']
-            );
+            return redirect('/konsumen/home')
+                ->withErrors(['msg' => 'Kode tracking tidak dikenal']);
         }
-        return view('konsumen.jual.track', compact('jual', 'jual_details', 'alamat_kirim'));
-    }
-    public function postcancel($id)
-    {
-        try {
-            $jual = Jual::find($id);
-            $jual->status_jual = 'BATAL';
-            $jual->waktu_batal = date('Y-m-d H:i:s');
-            $jual->save();
-        } catch (\Exception $e) {
-            return redirect('/konsumen/home')->withErrors(['msg' => $e->getMessage()]);
-        }
-        return redirect('/konsumen/home')->with('success', 'Berhasil membatalkan order');
+        return view(
+            'konsumen.jual.track',
+            compact('jual', 'jual_details', 'alamat_kirim', 'kurir')
+        );
     }
     public function postrate(Request $request, $id)
     {
@@ -257,17 +248,17 @@ class JualController extends Controller
         return redirect('/konsumen/home')
             ->with('success', 'Berhasil beri rating');
     }
+    
+    public function postcancel($id)
+    {
+     try{
+     $jual = Jual::find($id);
+     $jual->status_jual = 'BATAL';
+     $jual->waktu_batal = date('Y-m-d H:i:s');
+     $jual->save();
+     }catch(\Exception $e){
+     return redirect('/konsumen/home')->withErrors(['msg' => $e->getMessage()]);
+     }
+     return redirect('/konsumen/home')->with('success', 'Berhasil membatalkan order');
+    }
 }
-
-$jual = Jual::find($id);
-$jual_details = JualDetail::whereRaw("jual_id=?", [$id])->get();
-$alamat_kirim = AlamatKirim::find($jual->alamat_kirim_id);
-$kurir = User::find($jual->kurir_id);
-if ($jual == null || count($jual_details) == 0) {
-    return redirect('/konsumen/home')
-        ->withErrors(['msg' => 'Kode tracking tidak dikenal']);
-}
-return view(
-    'konsumen.jual.track',
-    compact('jual', 'jual_details', 'alamat_kirim', 'kurir')
-);

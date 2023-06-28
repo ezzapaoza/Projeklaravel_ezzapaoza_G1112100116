@@ -48,6 +48,8 @@ class HomeController extends Controller
         $order_bulan_ini = Jual::whereRaw("status_jual='TIBA' AND waktu_pesan>=? AND 
         waktu_pesan<?", [Carbon::today()->firstOfMonth(), Carbon::today()
             ->firstOfMonth()->addMonths(1)])->count();
+        $order_di_batalkan = Jual::whereRaw("status_jual='BATAL' AND waktu_pesan>=? AND 
+        waktu_pesan<?", [Carbon::today()->subDays(6), Carbon::today()->addDays(1)])->count();
         return view('resto.home.index', compact(
             'juals',
             'status_jual',
@@ -56,7 +58,8 @@ class HomeController extends Controller
             'rating_50',
             'rating_semua',
             'order_minggu_terakhir',
-            'order_bulan_ini'
+            'order_bulan_ini',
+            'order_di_batalkan',
         ));
     }
 }

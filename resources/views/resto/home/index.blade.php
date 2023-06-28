@@ -5,9 +5,7 @@
  <div class="row">
  <div class="col-4 pizza-card pizza-primary">
  <div class="row" style="padding-left:5px;padding-right:20px">
- <div class="col">
- Order bulan ini
- </div>
+ <div class="col">Order bulan ini</div>
  <div class="col">
  {{ $order_bulan_ini }}
  </div>
@@ -16,7 +14,7 @@
  <div class="col-4 pizza-card pizza-primary">
  <div class="row" style="padding-left:5px;padding-right:20px">
  <div class="col">
- Order minggu terakhir
+ Order minggu 
  </div>
  <div class="col">
  {{ $order_minggu_terakhir }}
@@ -32,6 +30,16 @@
  {{ $rating_50 == null ? '-' : number_format($rating_50,2) }}
 /{{ number_format($rating_semua,2) }}
  </div>
+ </div>
+ </div>
+ </div>
+ <div class="col-12 pizza-card pizza-primary">
+ <div class="row" style="padding-left:5px;padding-right:20px">
+ <div class="col">
+ order di batalkan
+ </div>
+ <div class="col">
+ {{ $order_di_batalkan }}
  </div>
  </div>
  </div>
